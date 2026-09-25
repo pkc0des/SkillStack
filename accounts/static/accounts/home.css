@@ -1,0 +1,62 @@
+.home-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.hero-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card);
+    margin: 20px;
+    width: 60%;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.hero-card .header {
+    font-size: 36px;
+    font-family: "Poppins", sans-serif;
+    color: hsl(215, 96%, 63%);
+    margin: 0px;
+}
+
+.hero-card .header .emphasize-default {
+    color: var(--text);
+}
+
+.hero-card .short-description {
+    font-size: 18px;
+    font-family: "Merriweather", sans-serif;
+    color: var(--descriptive-text);
+}
+
+.hero-card .short-description .emphasis-minor {
+    font-weight: bold;
+    color: hsl(215, 96%, 63%);
+}
+
+.hero-card .get-started-btn {
+    width: 150px;
+    height: 60px;
+    font-size: 20px;
+    background-color: hsl(213, 96%, 72%);
+    border-radius: 12px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+}
+
+.hero-card .get-started-btn:hover {
+    background-color: hsl(213, 96%, 65%);
+
+}
+
+.img-container .example-image {
+    width: 275px;
+    height: 333px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
