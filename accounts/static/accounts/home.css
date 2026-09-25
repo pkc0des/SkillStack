@@ -8,6 +8,7 @@
 }
 
 
+
 .hero-card {
     display: flex;
     flex-direction: column;
@@ -17,6 +18,13 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 1px 1px 3px 1px #bdbdbd;
+}
+
+.hero-card:hover {
+    animation-name: grow;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+
 }
 
 .hero-card .header {
@@ -85,6 +93,13 @@
     text-align: center;
     border-radius: 8px;
     box-shadow: 1px 1px 3px 1px #bdbdbd;
+}
+
+.feature-container .feature:hover {
+    animation-name: grow;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+
 }
 
 .feature-container .feature .feature-header {
