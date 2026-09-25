@@ -1,6 +1,10 @@
+* {
+    box-sizing: border-box;
+}
 .home-container {
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 
 
@@ -12,11 +16,12 @@
     width: 60%;
     padding: 20px;
     border-radius: 12px;
+    box-shadow: 1px 1px 3px 1px #bdbdbd;
 }
 
 .hero-card .header {
     font-size: 36px;
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font-primary);
     color: hsl(215, 96%, 63%);
     margin: 0px;
 }
@@ -27,7 +32,7 @@
 
 .hero-card .short-description {
     font-size: 18px;
-    font-family: "Merriweather", sans-serif;
+    font-family: var(--font-secondary);
     color: var(--descriptive-text);
 }
 
@@ -37,7 +42,7 @@
 }
 
 .hero-card .get-started-btn {
-    width: 150px;
+    width: 30%;
     height: 60px;
     font-size: 20px;
     background-color: hsl(213, 96%, 72%);
@@ -45,7 +50,8 @@
     border: none;
     color: white;
     font-weight: bold;
-    font-family: "Poppins", sans-serif;
+    
+    font-family: var(--font-primary);
     cursor: pointer;
 }
 
@@ -55,8 +61,42 @@
 }
 
 .img-container .example-image {
-    width: 275px;
+    width: 90%;
     height: 333px;
     margin-top: 20px;
     border-radius: 12px;
+}
+
+.feature-container {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    gap: 20px;
+    background-color: var(--bg);
+    margin: 20px;
+}
+
+.feature-container .feature {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card);
+    padding: 12px;
+    width: 25%;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px 1px #bdbdbd;
+}
+
+.feature-container .feature .feature-header {
+    font-family: var(--font-primary);
+    font-size: 1.2em;
+    margin: 8px;
+}
+
+.feature-container .feature .feature-description {
+    margin: 0px;
+    font-family: var(--font-secondary);
+    font-size: 0.9em;
+    text-align: center;
+    color: var(--descriptive-text);
 }

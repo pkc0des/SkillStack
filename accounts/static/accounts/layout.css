@@ -3,6 +3,8 @@
     --card: #FFFFFF;
     --text: hsl(234, 96%, 63%);
     --descriptive-text: rgb(79, 75, 75);
+    --font-primary: "Poppins", sans-serif;
+    --font-secondary: "Inter", sans-serif;
 }
 
 body {
