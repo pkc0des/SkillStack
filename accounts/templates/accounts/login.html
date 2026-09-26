@@ -13,15 +13,16 @@
     <div class="card-container">
         <div class="auth-container login-container">
             <h3 class="header">Login</h3>
-            <form action="#" class="auth-form">
+            <form action="{% url 'accounts:login' %}" method="post" class="auth-form">
+                {% csrf_token %}
                 <div class="field-container">
                     <label>Username:</label>
-                    <input placeholder="John" type="text">
+                    <input name="username" placeholder="John" type="text">
                 </div>
 
                 <div class="field-container">
                     <label>Password:</label>
-                    <input placeholder="12345678" type="password">
+                    <input name="password" placeholder="12345678" type="password">
                 </div>
 
                 <div>

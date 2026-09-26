@@ -13,20 +13,21 @@
     <div class="card-container">
         <div class="auth-container">
             <h3 class="header">Register</h3>
-            <form action="#" class="auth-form">
+            <form action="{% url 'accounts:register' %}" method="post" class="auth-form">
+                {% csrf_token %}
                 <div class="field-container">
                     <label>Username:</label>
-                    <input placeholder="John" type="text">
+                    <input name="username" placeholder="John" type="text">
                 </div>
 
                 <div class="field-container">
                     <label>Email:</label>
-                    <input placeholder="John@gmail.com" type="email">
+                    <input name="email" placeholder="John@gmail.com" type="email">
                 </div>
 
                 <div class="field-container">
                     <label>Password:</label>
-                    <input placeholder="12345678" type="password">
+                    <input name="password" placeholder="12345678" type="password">
                 </div>
 
                 <div>
