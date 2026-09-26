@@ -1,0 +1,41 @@
+{% extends 'accounts/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="card-container">
+        <div class="auth-container login-container">
+            <h3 class="header">Login</h3>
+            <form action="#" class="auth-form">
+                <div class="field-container">
+                    <label>Username:</label>
+                    <input placeholder="John" type="text">
+                </div>
+
+                <div class="field-container">
+                    <label>Password:</label>
+                    <input placeholder="12345678" type="password">
+                </div>
+
+                <div>
+                    <button type="submit" class="submit-btn">Login</button>
+                    <p class="alternate-option">Already have an account? <a>Register</a></p>
+                </div>
+                
+                
+
+
+            </form>
+            
+        </div>
+    </div>
+    
+
+{% endblock %}

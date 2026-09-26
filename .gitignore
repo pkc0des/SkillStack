@@ -20,4 +20,3 @@ staticfiles/
 .vscode/
 .idea/
 .DS_STORE
-authentication.html

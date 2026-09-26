@@ -1,0 +1,78 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 20px;
+}
+
+.card-container .auth-container {
+    width: 40%;
+    height: 75%;
+    background-color: var(--card);
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px 1px #bdbdbd;
+    padding: 12px;
+}
+
+.card-container .auth-container .header {
+    font-size: 2em;
+    font-family: var(--font-primary);
+    margin: 0px;
+    color: black;
+    margin-bottom: 14px;
+}
+
+.card-container .auth-container .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-container .auth-container .field-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-container .auth-container .field-container label {
+    font-size: 1.2em;
+    font-family: var(--font-primary);
+    margin-bottom: 3px;
+}
+
+.card-container .auth-container .field-container input {
+    width: 80%;
+    height: 30%;
+    font-size: 1em;
+}
+
+.card-container .auth-container .auth-form .submit-btn {
+    width: 85%;
+    font-size: 1.2em;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    background-color:  hsl(213, 96%, 72%);
+   
+    padding: 4px;
+    border-radius: 4px;
+    border: none;
+    margin: 0px;
+}
+
+.card-container .auth-container .auth-form .alternate-option {
+    margin-top: 4px;
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    font-size: 0.9em;
+    margin-left: 10px;
+    padding: 0px;
+}
+
+.card-container .auth-container .auth-form .alternate-option a {
+    color: hsl(213, 96%, 60%);
+    text-decoration: underline;
+}
+
+.card-container .login-container {
+    height: 60%;
+}

@@ -20,13 +20,13 @@
     <body>
         <nav class="navbar">
             <div class="title-container">
-                <h3 class="name">SkillStack</h3>
+                <h3 class="name"><a href="{% url 'accounts:homepage' %}">SkillStack</a></h3>
                 <img class="logo" src="{% static 'accounts/images/logo.png' %}">
             </div>
 
             <div class="button-container">
-                <button class="register-btn">Register</button>
-                <button class="login-btn">Login</button>
+                <button class="register-btn"><a href="{% url 'accounts:register' %}">Register</a></button>
+                <button class="login-btn"><a href="{% url 'accounts:login' %}">Login</a></button>
             </div>
 
         </nav>
