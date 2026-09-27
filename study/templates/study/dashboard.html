@@ -1,0 +1,35 @@
+{% extends 'study/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'study/dashboard.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+        <div class="time-stats">
+            <div class="weekly-time detail-card">
+                <p class="time-label">10 hrs 29 mins </p>
+                <p class="detail-header">Time studied this week</p>
+                
+
+            </div>
+
+            
+            <div class="today-time detail-card small">
+                <p class="time-label">2 hrs 42 mins</p>
+                <p class="detail-header">Time studied today</p>
+            </div>
+
+            <div class="average-time detail-card small">
+                <p class="time-label">1 hr 33 mins</p>
+                 <p class="detail-header">Average time studied</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

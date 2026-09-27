@@ -63,6 +63,10 @@
     cursor: pointer;
 }
 
+.hero-card .get-started-btn a {
+    color: white;
+}
+
 .hero-card .get-started-btn:hover {
     background-color: hsl(213, 96%, 65%);
 

@@ -123,3 +123,8 @@ a {
 .navbar .button-container .login-btn:hover {
     background: hsl(234, 96%, 65%);
 }
+
+.navbar .button-container .logout-btn {
+    background-color: hsl(234, 96%, 70%);;
+}
+
