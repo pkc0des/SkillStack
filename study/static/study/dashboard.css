@@ -73,12 +73,13 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 70%;
+    height: 75%;
     gap: 20px;
 }
 
 .dashboard-container .chart-container .result {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 45%;
@@ -92,10 +93,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
     width: 80%;
-    height: 80%;
+    height: 90%;
 }
 
 .dashboard-container .chart-container .result .pie-chart-container .pie-chart {
