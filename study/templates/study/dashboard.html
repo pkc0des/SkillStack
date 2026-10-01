@@ -47,5 +47,6 @@
         </div>
     </div>
 
+    {{ subject_stats|json_script:"subject-data" }}
     <script defer src="{% static 'study/main.js' %}"></script>
 {% endblock %}

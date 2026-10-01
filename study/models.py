@@ -6,7 +6,7 @@ from accounts.models import Profile
 
 class Subject(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    color = models.CharField(max_length=7, blank=True)
+    color = models.CharField(max_length=20, blank=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

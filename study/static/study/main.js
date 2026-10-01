@@ -1,7 +1,11 @@
+const subjectStats = JSON.parse(document.querySelector("#subject-data").textContent)
+
+
+
 const color1 = 'hsl(234, 96%, 70%)';
 const color2 = 'hsl(234, 96%, 55%)';
 const color3 = 'hsl(215, 96%, 63%)';
-const color4 = 'hsl(215, 96%, 50%)'
+const color4 = 'hsl(215, 96%, 50%)';
 
 document.addEventListener("DOMContentLoaded", () => {
     showSubjectPieChart();
@@ -12,12 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
 function showSubjectPieChart() {
     const resultContainer = document.querySelector(".study-result")
 
-    let slice1 = {size:13, color: color1};
-    let slice2 = {size:2, color: color2};
-    let slice3 = {size: 2, color: color3};
-    let slice4 = {size: 4, color: color4}
+    const values = subjectStats.map(subject => {
+        console.log(subject)
+        let name = subject["subject__name"]
+        let size = subject["total_minutes"]
+        let formatted_time = subject["formatted_minutes"]
+        let color = subject["subject__color"]
 
-    const values = [slice1, slice2, slice3, slice4];
+        return {size, color, formatted_time, name}
+    })
+
+    console.log(values)
+
     const total = values.reduce((accumulator, value) => accumulator+value.size, 0);
 
     let startAngle = 0;
@@ -51,25 +61,12 @@ function showSubjectPieChart() {
 
     // Show Legend
     const legend = resultContainer.querySelector(".pie-chart-legend");
-    legend.innerHTML = `
-        <div class="legend-item">
-            <div class="legend-color" style="background-color:${slice1.color}"></div>
-            <div class="legend-label">Programming: ${slice1.size} hours - ${((slice1.size / total) * 100).toFixed(2)}%</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color" style="background-color:${slice2.color}"></div>
-            <div class="legend-label">Mathematics: ${slice2.size} hours - ${((slice2.size / total) * 100).toFixed(2)}%</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color" style="background-color:${slice3.color}"></div>
-            <div class="legend-label">Science: ${slice3.size} hours - ${((slice3.size / total) * 100).toFixed(2)}%</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color" style="background-color:${slice4.color}"></div>
-            <div class="legend-label">English & SS: ${slice4.size} hours - ${((slice4.size / total) * 100).toFixed(2)}%</div>
-        </div>
-         
-    `
+    legend.innerHTML = values.map(value =>
+        `<div class="legend-item">
+            <div class="legend-color" style="background-color:${value.color}"></div>
+            <div class="legend-label">Programming: ${value.formatted_time} - ${((value.size / total) * 100).toFixed(2)}%</div>
+        </div>`).join("");
+    
 }
 
 function showLogPieChart() {
