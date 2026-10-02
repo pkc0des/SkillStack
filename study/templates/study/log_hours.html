@@ -1,0 +1,45 @@
+{% extends 'study/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Log Hours</title>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'study/log_hours.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="log-card">
+        <h1 class="header">Manually Log Hours</h1>
+
+        <form action="" method="post" class="log-form">
+            {% csrf_token %}
+
+            <div class="field">
+                <label for="subjects">Subject</label>
+                <select name="subjects" id="subjects">
+                    <option value="Programming">Programming</option>
+                    <option value="Mathematics">Math</option>
+                    <option value="Science">Science</option>
+                    <option value="English/SS">ELA/SS</option>
+                </select>
+            </div>
+
+             <div class="field">
+                <label for="subjects">Start Time</label>
+                <input type="datetime-local" name="start_time">
+            </div>
+
+             <div class="field">
+                <label for="subjects">End Time</label>
+                <input type="datetime-local" name="end_time">
+                
+            </div>
+
+            <button class="submit-btn" type="submit">Log</button>
+        </form>
+        
+    </div>
+
+{% endblock %}
