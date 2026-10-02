@@ -25,3 +25,8 @@ def dashboard(request):
         "average_time_studied": average_time_studied,
         "subject_stats": formatted_subjects
     })
+
+@login_required()
+def log_hours(request):
+
+    return render(request, "study/log_hours.html")
