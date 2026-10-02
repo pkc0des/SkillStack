@@ -13,12 +13,12 @@
     <div class="log-card">
         <h1 class="header">Manually Log Hours</h1>
 
-        <form action="" method="post" class="log-form">
+        <form action="{% url 'study:log_hours' %}" method="post" class="log-form">
             {% csrf_token %}
 
             <div class="field">
                 <label for="subjects">Subject</label>
-                <select name="subjects" id="subjects">
+                <select name="subject" id="subject">
                     <option value="Programming">Programming</option>
                     <option value="Mathematics">Math</option>
                     <option value="Science">Science</option>
@@ -27,12 +27,12 @@
             </div>
 
              <div class="field">
-                <label for="subjects">Start Time</label>
+                <label for="start_time">Start Time</label>
                 <input type="datetime-local" name="start_time">
             </div>
 
              <div class="field">
-                <label for="subjects">End Time</label>
+                <label for="end_time">End Time</label>
                 <input type="datetime-local" name="end_time">
                 
             </div>
