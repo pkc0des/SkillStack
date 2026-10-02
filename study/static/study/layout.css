@@ -5,6 +5,7 @@
     --descriptive-text: rgb(79, 75, 75);
     --font-primary: "Poppins", sans-serif;
     --font-secondary: "Inter", sans-serif;
+    --card-shadow: 1px 1px 3px 1px #bdbdbd;
 }
 
 body {
