@@ -87,6 +87,7 @@ def format_subject_results(subject_results) -> list:
             math_dict = subject
             subjects.append(math_dict)
         elif subject_name == "Science":
+            science_dict= subject
             subjects.append(science_dict)
         elif subject_name == "English/SS":
             ela_dict = subject

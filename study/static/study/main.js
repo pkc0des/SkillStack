@@ -64,7 +64,7 @@ function showSubjectPieChart() {
     legend.innerHTML = values.map(value =>
         `<div class="legend-item">
             <div class="legend-color" style="background-color:${value.color}"></div>
-            <div class="legend-label">Programming: ${value.formatted_time} - ${((value.size / total) * 100).toFixed(2)}%</div>
+            <div class="legend-label">${value.name}: ${value.formatted_time} - ${((value.size / total) * 100).toFixed(2)}%</div>
         </div>`).join("");
     
 }
