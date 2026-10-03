@@ -52,3 +52,7 @@ def log_hours(request):
         print(form.errors)
 
     return render(request, "study/log_hours.html")
+
+@login_required()
+def pomodoro(request):
+    return render(request, "study/pomodoro.html")

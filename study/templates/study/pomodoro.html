@@ -1,0 +1,15 @@
+{% extends 'study/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Pomodoro Timer</title>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'study/pomodoro.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <script defer src="{% static 'study/pomodoro.js' %}"></script>
+{% endblock %}
