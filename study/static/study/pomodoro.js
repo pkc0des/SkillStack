@@ -3,12 +3,15 @@ const startButton = document.querySelector(".start-btn");
 const pauseButton = document.querySelector(".pause-btn");
 
 // Toggle Elements querySelectors
-const studyButton = document.querySelector(".study-btn");
-const breakButton = document.querySelector(".break-btn");
+const studyButton = document.querySelector("#study-btn");
+const breakButton = document.querySelector("#break-btn");
 
 // Mutual Elements
 const timer = document.querySelector(".time");
 const duration = document.querySelector("#duration");
+
+// Tokens
+const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value
 
 // Global Variables
 let isPaused = false
@@ -19,19 +22,44 @@ let durationSeconds = 0
 let isStarted = false;
 let mode = "study";
 
+let startTime = null
+let endTime = null
+
+let isEnded = false
+
 
 // Event Handlers
 
 studyButton.addEventListener("click", () => {
+    if (isPaused == false) {
+        return
+    }
     mode = "study";
+    breakButton.style.backgroundColor = 'hsl(212, 17%, 67%)';
+    studyButton.style.backgroundColor = 'hsl(213, 84%, 58%)';
+    durationMinutes = 25;
+    durationSeconds = 0;
+    setTimer();
+    isStarted = false;
 })
 
-breakButton.addEventListener("click" () => {
+breakButton.addEventListener("click", () => {
+    if (isPaused == false) {
+        return
+    }
     mode = "break";
+    studyButton.style.backgroundColor =  'hsl(212, 17%, 67%)';
+    breakButton.style.backgroundColor = 'hsl(220, 96%, 55%)';
+    durationMinutes = 5;
+    durationSeconds = 0;
+    setTimer();
+    isStarted = false;
 })
 
 
 startButton.addEventListener("click", () => {
+    isEnded = false
+    startTime = new Date()
     durationMinutes =  durationMinutes === 0 ? duration.value : durationMinutes;
     durationSeconds = durationSeconds === 0 ? 59 : durationSeconds;
     if(validateDuration(durationMinutes) == false) {
@@ -68,12 +96,15 @@ function setTimer() {
 
 function startTimer() {
     const updateTimer = setInterval(() => {
-        if (isPaused == true) {
+        if (isPaused === true || isEnded === true) {
             clearInterval(updateTimer)
+            console.log(isEnded)
         }
+
         
-        if (durationMinutes <= 0 && durationSeconds <= 0) {
-            setTimer(0, 0)
+        
+        if (durationMinutes <= 0 && durationSeconds <= 0 && isEnded === false) {
+            setTimer()
             return completedTimer(mode)
         }
         
@@ -84,6 +115,13 @@ function startTimer() {
 
         durationSeconds -= 1;
         setTimer(durationMinutes, durationSeconds);
+
+        if (isEnded === true) {
+            console.log(isEnded);
+            durationMinutes = 0;
+            durationSeconds = 0;
+            setTimer()
+        }
 
     }, 1000)
 }
@@ -113,11 +151,39 @@ function toggleStart(typeToTurnOff) {
 
 function completedTimer(currentMode) {
     if (currentMode === "study") {
+        isEnded = true
         console.log("Finished pomodoro");
+        endTime = new Date();
+        console.log("Start: ", startTime);
+        console.log("End: ", endTime)
+        logPomodoroTime()
 
     } else if (currentMode === "break") {
         console.log("Finished break");
     }
+}
+
+async function logPomodoroTime() {
+    const url = 'http://127.0.0.1:8000/pomodoro'
+    const payload = {
+        startTime: startTime,
+        endTime: endTime,
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'applcation/json',
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify(payload)
+        });
+    } catch(error) {
+        console.log(`There was an error: ${error}`)
+
+    }
+
 }
 
 

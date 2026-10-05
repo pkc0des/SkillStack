@@ -1,5 +1,7 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.dateparse import parse_datetime
 from .models import StudySession, Subject
 from .utils import hours_studied_this_week, hours_studied_today, average_time_per_day, format_minutes_to_hours_minutes, minutes_per_subject_this_week, format_subject_results, get_profile
 from .forms import LogHoursForm
@@ -54,5 +56,22 @@ def log_hours(request):
     return render(request, "study/log_hours.html")
 
 @login_required()
+# TODO: Add subject field to pomodoro.html & new_session!
 def pomodoro(request):
+    if request.method == "POST":
+        session_info = json.loads(request.body)
+        start_time = parse_datetime(session_info['startTime'])
+        end_time = parse_datetime(session_info['endTime'])
+
+        if start_time and end_time:
+            duration = round(((end_time - start_time).total_seconds()) / 60)
+
+        new_session = StudySession(
+            user=get_profile(request.user),
+            duration=duration,
+            start_time=start_time,
+            end_time=end_time
+        )
+
+       
     return render(request, "study/pomodoro.html")
