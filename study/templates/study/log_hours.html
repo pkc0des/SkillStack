@@ -19,10 +19,9 @@
             <div class="field">
                 <label for="subjects">Subject</label>
                 <select name="subject" id="subject">
-                    <option value="Programming">Programming</option>
-                    <option value="Mathematics">Math</option>
-                    <option value="Science">Science</option>
-                    <option value="English/SS">ELA/SS</option>
+                    {% for subject in subjects %}
+                        <option value="{{ subject.name }}">{{ subject.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
