@@ -24,6 +24,7 @@ def minutes_per_subject_this_week(user):
         .annotate(total_minutes=Sum("duration"))
         .order_by("-total_minutes")
     )
+
 def minutes_per_study_type_this_week(user):
     one_week_ago = timezone.now() - timedelta(days=7)
     return (
@@ -33,6 +34,30 @@ def minutes_per_study_type_this_week(user):
         .order_by("-total_minutes")
     )
 
+def format_study_type_minutes(study_type_results):
+    pomodoro_dict = {}
+    logged_dict = {}
+    
+    log_information = []
+    
+    for study_type in study_type_results:
+        
+        if study_type.get("is_pomodoro") == True:
+            study_type_name = "Pomodoro"
+        else:
+            study_type_name = "Logged"
+        
+            
+        study_type["formatted_minutes"] = format_minutes_to_hours_minutes(study_type["total_minutes"])
+
+        if study_type_name == "Pomodoro":
+            pomodoro_dict = study_type
+            log_information.append(pomodoro_dict)
+        elif study_type_name == "Logged":
+            logged_dict = study_type
+            log_information.append(logged_dict)
+    
+    return log_information
 
 
 def hours_studied_this_week(user):
