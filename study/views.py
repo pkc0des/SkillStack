@@ -53,7 +53,6 @@ def log_hours(request):
     })
 
 @login_required()
-# TODO: Add subject field to pomodoro.html & new_session!
 def pomodoro(request):
     subjects = Subject.objects.all()
     if request.method == "POST":
@@ -75,7 +74,8 @@ def pomodoro(request):
             subject=Subject.objects.get(name=subject_name),
             duration=duration,
             start_time=start_time,
-            end_time=end_time
+            end_time=end_time,
+            is_pomodoro=True
         )
 
         return JsonResponse(data={

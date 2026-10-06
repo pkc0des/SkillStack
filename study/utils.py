@@ -24,6 +24,15 @@ def minutes_per_subject_this_week(user):
         .annotate(total_minutes=Sum("duration"))
         .order_by("-total_minutes")
     )
+def minutes_per_study_type_this_week(user):
+    one_week_ago = timezone.now() - timedelta(days=7)
+    return (
+        get_sessions_since(user, one_week_ago)
+        .values("is_pomodoro")
+        .annotate(total_minutes=Sum("duration"))
+        .order_by("-total_minutes")
+    )
+
 
 
 def hours_studied_this_week(user):
