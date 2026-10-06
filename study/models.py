@@ -20,6 +20,7 @@ class StudySession(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     log_date = models.DateTimeField(auto_now_add=True)
+    is_pomodoro = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"{self.user} studied {self.subject} for {self.duration} minutes."
