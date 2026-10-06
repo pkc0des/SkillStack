@@ -1,6 +1,7 @@
 // Study Elements querySelectors
 const startButton = document.querySelector(".start-btn");
 const pauseButton = document.querySelector(".pause-btn");
+const subjectDropdown = document.querySelector("#subjects-dropdown")
 
 // Toggle Elements querySelectors
 const studyButton = document.querySelector("#study-btn");
@@ -10,8 +11,13 @@ const breakButton = document.querySelector("#break-btn");
 const timer = document.querySelector(".time");
 const duration = document.querySelector("#duration");
 
+// Message Elements
+const messageContainer = document.querySelector(".result-message-container");
+const responseType = messageContainer.querySelector(".response-type");
+const message = messageContainer.querySelector(".message");
+
 // Tokens
-const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value
+const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value;
 
 // Global Variables
 let isPaused = false
@@ -22,10 +28,12 @@ let durationSeconds = 0
 let isStarted = false;
 let mode = "study";
 
-let startTime = null
-let endTime = null
+let startTime = null;
+let endTime = null;
 
-let isEnded = false
+let isEnded = false;
+let subjectToStudy = subjectDropdown.value
+
 
 
 // Event Handlers
@@ -58,6 +66,9 @@ breakButton.addEventListener("click", () => {
 
 
 startButton.addEventListener("click", () => {
+    subjectToStudy = subjectDropdown.value
+    console.log(subjectToStudy)
+
     isEnded = false
     startTime = new Date()
     durationMinutes =  durationMinutes === 0 ? duration.value : durationMinutes;
@@ -82,9 +93,6 @@ pauseButton.addEventListener("click", () => {
     const curr_mins = durationMinutes;
     const curr_secs = durationSeconds;
 
-    console.log(curr_mins);
-    console.log(curr_secs);
-
     toggleStart("pause");
 
 })
@@ -99,6 +107,7 @@ function startTimer() {
         if (isPaused === true || isEnded === true) {
             clearInterval(updateTimer)
             console.log(isEnded)
+            return
         }
 
         
@@ -152,10 +161,7 @@ function toggleStart(typeToTurnOff) {
 function completedTimer(currentMode) {
     if (currentMode === "study") {
         isEnded = true
-        console.log("Finished pomodoro");
         endTime = new Date();
-        console.log("Start: ", startTime);
-        console.log("End: ", endTime)
         logPomodoroTime()
 
     } else if (currentMode === "break") {
@@ -163,25 +169,46 @@ function completedTimer(currentMode) {
     }
 }
 
+function updateMessage(resType, content) {
+    messageContainer.hidden = false
+    console.log(resType)
+    console.log(content)
+    responseType.textContent = resType
+
+    if (resType == "success") {
+        responseType.style.color = 'rgb(79, 145, 72)';
+    } else if (resType == "error") {
+        responseType.style.color = 'rgb(211, 47, 47)';
+    }
+    message.textContent = content
+}
+
 async function logPomodoroTime() {
     const url = 'http://127.0.0.1:8000/pomodoro'
     const payload = {
         startTime: startTime,
         endTime: endTime,
-    }
+        subjectStudied: subjectToStudy
+    };
 
     try {
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                'Content-Type': 'applcation/json',
+                'Content-Type': 'application/json',
                 "X-CSRFToken": csrfToken
             },
             body: JSON.stringify(payload)
         });
-    } catch(error) {
-        console.log(`There was an error: ${error}`)
 
+        if (response.ok) {
+            updateMessage("success", "Pomodoro successfully completed! Check the dashboard!")
+            console.log("Successfully created study session")
+        }
+
+    } catch(error) {
+        console.log(`There was an error: ${error}`);
+        updateMessage("error", error)
     }
 
 }

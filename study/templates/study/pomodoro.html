@@ -10,45 +10,52 @@
 {% endblock %}
 
 {% block body %}
-    <div class="pomodoro-card">
-        <div class="toggle-buttons">
-            <button id="study-btn">Study</button>
-            <button id="break-btn">Break</button>
-        </div>
-
-
-        <div class="time-display">
-            <h1 class="time">25:00</h1>
-        </div>
-
-        <div class="action-btns">
-            <button class="start-btn">Start</button>
-            <button class="pause-btn" hidden>Pause</button>
-        </div>
-
-        <div class="settings">
-            <div>
-                <label for="duration">Duration: </label>
-                <input type="number" id="duration" min="25" max="60" placeholder="25-60">
+    <div class="pomodoro-container">
+        <div class="pomodoro-card">
+            <div class="toggle-buttons">
+                <button id="study-btn">Study</button>
+                <button id="break-btn">Break</button>
             </div>
 
-            <div>
-                <label for="subjects-dropdown">Subject: </label>
-                <select id="subjects-dropdown">
-                    {% for subject in subjects %}
-                        <option value="{{ subject.name }}">{{ subject.name }}</option>
-                    {% endfor %}
-                </select>
+
+            <div class="time-display">
+                <h1 class="time">25:00</h1>
+            </div>
+
+            <div class="action-btns">
+                <button class="start-btn">Start</button>
+                <button class="pause-btn" hidden>Pause</button>
+            </div>
+
+            <div class="settings">
+                <div>
+                    <label for="duration">Duration: </label>
+                    <input type="number" id="duration" min="25" max="60" placeholder="25-60">
+                </div>
+
+                <div>
+                    <label for="subjects-dropdown">Subject: </label>
+                    <select id="subjects-dropdown">
+                        {% for subject in subjects %}
+                            <option value="{{ subject.name }}">{{ subject.name }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                </div>
                 
             </div>
+
+            {% csrf_token %}
             
+
+
+
         </div>
 
-        {% csrf_token %}
-        
-
-
-
+        <div class="result-message-container" hidden>
+            <p class="response-type">Success!</p>
+            <p class="message">Successfully created study session!</p>
+        </div>
     </div>
 
     <script defer src="{% static 'study/pomodoro.js' %}"></script>

@@ -2,12 +2,24 @@
     font-family: var(--font-primary);
 }
 
+[hidden] {
+    display: none !important;
+}
+
+.pomodoro-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+}
+
 .pomodoro-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 35%;
-    height: 45%;
+    width: 45%;
+    height: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
@@ -82,15 +94,60 @@
 
 .pomodoro-card .settings {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
 }
 
-.pomodoro-card .settings label {
+.pomodoro-card .settings div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.pomodoro-card .settings div label {
     font-weight: 500;
 }
 
-.pomodoro-card .settings input {
+.pomodoro-card .settings div input {
     font-size: 0.7em;
     text-align: center;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid rgb(215, 211, 211);
+    border-radius: 4px;
+
 }
+
+.pomodoro-card  .settings div select {
+    font-size: 0.7em;
+    appearance: none;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid rgb(215, 211, 211);
+    border-radius: 4px;
+}
+
+.result-message-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(212, 209, 209, 0.5);
+    width: 45%;
+    padding: 12px;
+    margin: 10px;
+    border-radius: 12px;
+}
+
+.result-message-container .response-type {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: rgb(79, 145, 72);
+    margin: 0px;
+}
+
+.result-message-container .message {
+    font-weight: 400;
+    margin: 0px;
+}
+

@@ -93,8 +93,8 @@ def format_subject_results(subject_results) -> list:
             ela_dict = subject
             subjects.append(ela_dict)
 
-    
-
     return subjects
 
 
+def get_subjects():
+    return Subject.objects.all()
