@@ -98,3 +98,4 @@ def format_subject_results(subject_results) -> list:
 
 def get_subjects():
     return Subject.objects.all()
+
