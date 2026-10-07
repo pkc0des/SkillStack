@@ -14,33 +14,32 @@ SkillStack is an all in one sutdy platform. That means that it has everything fr
 - What's planned or in progress? (mark clearly as WIP)
 
 - Existing Features:
-    - 
-
-- Planned Features & In Progress Features:
     - User Authentication
         - Register
         - Login
         - Logout
-    
+
     - Main Dashboard Page
         - Time studied today (hours & minutes)
         - Time studied this week (hours & minutes)
-        - Main subject studied today
         - Main subject studied this week
     
+    - Database Models
+        - Profiles
+        - Study Sessions
+        - Subjects
+        
+
+- Planned Features & In Progress Features:
     - AI Coach
         - Clean, chat-like UI
         - High energy & motivational vibes
     
     - Database Models
-        - Users
-        - Study Sessions
-        - Subject (For readability and efficiency)
         - Goals
         - User Preferences (For the personal coach)
 
     
-
 ## Demo / Screenshots
 Got a screenshot, GIF, or hosted demo to link once there's a UI to show?
 
