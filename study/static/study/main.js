@@ -29,7 +29,9 @@ function showSubjectPieChart() {
 
     console.log(values)
 
-    const total = values.reduce((accumulator, value) => accumulator+value.size, 0);
+    const total = values.reduce((totalSize, value) => {
+        return totalSize + value.size
+    }, 0);
 
     let startAngle = 0;
 
@@ -72,10 +74,6 @@ function showSubjectPieChart() {
 
 function showLogPieChart() {
     const resultContainer = document.querySelector(".log-result")
-
-    const slice1= {size: 12, color: color1};
-    const slice2 = {size: 5, color: color2};
-
     const values = pomodoroStats.map(studyType => {
         console.log(studyType);
         let name = studyType["type"];
@@ -92,7 +90,9 @@ function showLogPieChart() {
         return {size, formatted_time, name, color}
     })
 
-    const total = values.reduce((accumulator, value) => accumulator+value.size, 0);
+    const total = values.reduce((totalSize, value) => {
+        return totalSize + value.size
+    }, 0);
 
     let startAngle = 0;
 
