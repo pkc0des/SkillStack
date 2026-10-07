@@ -48,5 +48,6 @@
     </div>
 
     {{ subject_stats|json_script:"subject-data" }}
+    {{ pomodoro_stats|json_script:"pomodoro-data" }}
     <script defer src="{% static 'study/main.js' %}"></script>
 {% endblock %}

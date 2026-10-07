@@ -49,10 +49,12 @@ def format_study_type_minutes(study_type_results):
         
             
         study_type["formatted_minutes"] = format_minutes_to_hours_minutes(study_type["total_minutes"])
+        study_type["type"] = study_type_name
 
         if study_type_name == "Pomodoro":
             pomodoro_dict = study_type
             log_information.append(pomodoro_dict)
+            
         elif study_type_name == "Logged":
             logged_dict = study_type
             log_information.append(logged_dict)
