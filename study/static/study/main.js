@@ -13,12 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showLogPieChart();
 });
 
-
 function showSubjectPieChart() {
     const resultContainer = document.querySelector(".study-result")
 
-    const values = subjectStats.map(subject => {
-        console.log(subject)
+    const subjects = subjectStats.map(subject => {
         let name = subject["subject__name"]
         let size = subject["total_minutes"]
         let formatted_time = subject["formatted_minutes"]
@@ -27,10 +25,8 @@ function showSubjectPieChart() {
         return {size, color, formatted_time, name}
     })
 
-    console.log(values)
-
-    const total = values.reduce((totalSize, value) => {
-        return totalSize + value.size
+    const total = subjects.reduce((totalSize, subject) => {
+        return totalSize + subject.size
     }, 0);
 
     let startAngle = 0;
@@ -41,8 +37,8 @@ function showSubjectPieChart() {
     const ctx = canvas.getContext("2d");
 
     // Calculate angles
-    values.forEach((value, index) => {
-        const angle = (value.size/total) * Math.PI * 2;
+    subjects.forEach((subject, index) => {
+        const angle = (subject.size/total) * Math.PI * 2;
 
         // Draw a slice
         ctx.beginPath();
@@ -56,7 +52,7 @@ function showSubjectPieChart() {
         );
 
         ctx.closePath();
-        ctx.fillStyle = value.color
+        ctx.fillStyle = subject.color
         ctx.fill()
 
         startAngle += angle
@@ -64,18 +60,17 @@ function showSubjectPieChart() {
 
     // Show Legend
     const legend = resultContainer.querySelector(".pie-chart-legend");
-    legend.innerHTML = values.map(value =>
+    legend.innerHTML = subjects.map(subject =>
         `<div class="legend-item">
-            <div class="legend-color" style="background-color:${value.color}"></div>
-            <div class="legend-label">${value.name}: ${value.formatted_time} - ${((value.size / total) * 100).toFixed(2)}%</div>
+            <div class="legend-color" style="background-color:${subject.color}"></div>
+            <div class="legend-label">${subject.name}: ${subject.formatted_time} - ${((subject.size / total) * 100).toFixed(2)}%</div>
         </div>`).join("");
     
 }
 
 function showLogPieChart() {
     const resultContainer = document.querySelector(".log-result")
-    const values = pomodoroStats.map(studyType => {
-        console.log(studyType);
+    const studyAmounts = pomodoroStats.map(studyType => {
         let name = studyType["type"];
         let size = studyType["total_minutes"];
         let formatted_time = studyType["formatted_minutes"];
@@ -90,7 +85,7 @@ function showLogPieChart() {
         return {size, formatted_time, name, color}
     })
 
-    const total = values.reduce((totalSize, value) => {
+    const total = studyAmounts.reduce((totalSize, value) => {
         return totalSize + value.size
     }, 0);
 
@@ -99,8 +94,8 @@ function showLogPieChart() {
     const canvas = resultContainer.querySelector(".pie-chart");
     const ctx = canvas.getContext("2d");
 
-    values.forEach((value, index) => {
-        const angle = (value.size/total) * Math.PI * 2;
+    studyAmounts.forEach((studyType, index) => {
+        const angle = (studyType.size/total) * Math.PI * 2;
 
         ctx.beginPath();
         ctx.moveTo(canvas.width/2, canvas.height/2);
@@ -113,17 +108,17 @@ function showLogPieChart() {
         );
 
         ctx.closePath();
-        ctx.fillStyle = value.color
+        ctx.fillStyle = studyType.color
         ctx.fill()
 
         startAngle += angle
     })
 
     const legend = resultContainer.querySelector(".pie-chart-legend");
-    legend.innerHTML = values.map(value =>
+    legend.innerHTML = studyAmounts.map(studyType =>
         `<div class="legend-item">
-            <div class="legend-color" style="background-color:${value.color}"></div>
-            <div class="legend-label">${value.name}: ${value.formatted_time} - ${((value.size / total) * 100).toFixed(2)}%</div>
+            <div class="legend-color" style="background-color:${studyType.color}"></div>
+            <div class="legend-label">${studyType.name}: ${studyType.formatted_time} - ${((studyType.size / total) * 100).toFixed(2)}%</div>
         </div>`).join("");
 }
 
