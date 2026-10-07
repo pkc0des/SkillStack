@@ -92,6 +92,12 @@
     background-color: hsl(234, 96%, 70%);
 }
 
+.pomodoro-card .action-btns .pause-btn {
+    display: none;
+    background-color: rgb(164, 164, 164);
+}
+
+
 .pomodoro-card .settings {
     display: flex;
     flex-direction: column;
