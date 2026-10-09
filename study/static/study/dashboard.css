@@ -41,7 +41,7 @@
 }
 
 .dashboard-container .time-stats .detail-card .detail-header {
-    font-size: 0.8em;
+    font-size: 1.2rem;
     font-family: var(--font-primary);
     font-weight: 500;
     color: rgb(127, 127, 127);
@@ -50,7 +50,7 @@
 
 .dashboard-container .time-stats .detail-card .time-label {
     font-family: var(--font-secondary);
-    font-size: 1.8em;
+    font-size: 3rem;
     font-weight: bold;
     margin: 0px;
 }
@@ -66,7 +66,7 @@
 }
 
 .dashboard-container .time-stats .small .time-label {
-    font-size: 1.5em;
+    font-size: 2.5rem;
 }
 
 .dashboard-container .chart-container {
@@ -117,6 +117,6 @@
 .legend-item {
     display: flex;
     margin-bottom: 8px;
-    font-size: 0.8em;
+    font-size: 1.3rem;
     font-family: var(--font-secondary);
 }

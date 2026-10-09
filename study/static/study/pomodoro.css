@@ -22,9 +22,9 @@
     height: 50%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 2.2rem;
 
-    padding: 12px;
+    padding: 1rem;
 
 
     background-color: var(--card);
@@ -45,6 +45,7 @@
     width: 20%;
     border: none;
     border-radius: 4px;
+    font-size: 1.3rem;
     margin: 0px;
     color: white;
     font-weight: 500;
@@ -65,7 +66,7 @@
 }
 
 .pomodoro-card .time-display .time {
-    font-size: 5em;
+    font-size: 8rem;
     margin: 0px;
 }
 
@@ -80,7 +81,7 @@
     width: 50%;
     text-align: center;
 
-    font-size: 1.5em;
+    font-size: 2rem;
     color: white;
     font-weight: bold;
 
@@ -114,10 +115,11 @@
 
 .pomodoro-card .settings div label {
     font-weight: 500;
+    font-size: 1.1rem;
 }
 
 .pomodoro-card .settings div input {
-    font-size: 0.7em;
+    font-size: 1.1rem;
     text-align: center;
     width: 100%;
     padding: 4px;
@@ -127,7 +129,7 @@
 }
 
 .pomodoro-card  .settings div select {
-    font-size: 0.7em;
+    font-size: 1.1rem;
     appearance: none;
     width: 100%;
     padding: 4px;
