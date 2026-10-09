@@ -88,6 +88,8 @@
 .feature-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    
     width: 95%;
     gap: 20px;
     background-color: var(--bg);
@@ -99,7 +101,7 @@
     flex-direction: column;
     background-color: var(--card);
     padding: 1rem;
-    width: 25%;
+    width: calc(25% - 20px);
     text-align: center;
     border-radius: 8px;
     box-shadow: 1px 1px 3px 1px #bdbdbd;
@@ -124,4 +126,40 @@
     font-size: 1.5rem;
     text-align: center;
     color: var(--descriptive-text);
+}
+
+@media all and (max-width: 1149px) {
+    .home-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img-container {
+        width: 50%;
+    }
+
+    .example-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .feature-container {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .feature-container .feature {
+        width: 40%;
+        border: 1px solid black;
+    }
+}
+
+@media (max-width: 808px) {
+    .feature-container {
+        width: 100%;
+    }
+    .feature-container .feature {
+        width: 100%;
+        margin: 0px 10px;
+    }
 }
