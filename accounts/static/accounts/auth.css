@@ -78,3 +78,21 @@
 .card-container .login-container {
     height: 60%;
 }
+
+@media (max-width: 1024px) {
+    .card-container .auth-container {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container .auth-container {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container .auth-container {
+        width: 80%;
+    }
+}
