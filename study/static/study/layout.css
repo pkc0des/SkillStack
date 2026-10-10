@@ -127,6 +127,7 @@ a {
 .navbar .motivation-list {
     display: flex;
     height: auto;
+    margin-bottom: auto;
     
 }
 
@@ -148,4 +149,64 @@ a {
     font-size: 1.8rem;
     margin: 0px;
    
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        width: 28%;
+    }
+
+    .navbar .title-container .name {
+        font-size: 1.8rem
+    }
+
+    .navbar .title-container .logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .navbar .motivation-list .motivational-words-list li{
+        font-size: 1.5rem;
+        
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .navbar .option-container .option .option-name {
+        font-size: 1.5rem;
+    }
+
+   
+
+    .navbar .motivation-list .motivational-words-list li{
+        font-size: 1.4rem;
+        
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        width: 35%;
+    }
+
+    .navbar .title-container .name {
+        font-size: 1.5rem;
+    }
+
+    .navbar .title-container .logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .navbar .option-container .option .option-name {
+        font-size: 1.3rem;
+    }
+
+    .navbar .motivation-list .motivational-words-list li {
+        font-size: 1.2rem;
+    }
+
+
 }
