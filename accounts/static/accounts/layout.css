@@ -94,7 +94,7 @@ a {
 }
 
 .navbar .button-container button {
-    width: 30%;
+    width: 40%;
     font-family: "Poppins", sans-serif;
     padding: 0.7rem;
 
@@ -129,4 +129,23 @@ a {
 .navbar .button-container .logout-btn {
     background-color: hsl(234, 96%, 70%);;
 }
+
+@media (max-width: 1024px) {
+    .navbar .button-container button {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .button-container button {
+        font-size: 1.1rem;
+    }
+}
+@media (max-width: 480px) {
+    .navbar .button-container button {
+        font-size: 0.8rem;
+        width: 100%;
+    }
+}
+
 
