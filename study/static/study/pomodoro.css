@@ -159,3 +159,46 @@
     margin: 0px;
 }
 
+@media (max-width: 1024px) {
+    .pomodoro-card {
+        width: 55%;
+    }
+}
+
+@media (max-width: 768px) {
+    .pomodoro-card {
+        width: 70%;
+    }
+}
+
+@media (max-width: 480px) {
+    .pomodoro-card {
+        width: 80%;
+    }
+
+    .pomodoro-card .toggle-buttons button {
+        width: 30%;
+        font-size: 1.1rem;
+    }
+
+    .pomodoro-card .time-display .time {
+        font-size: 5.5rem;
+    }
+
+    .pomodoro-card .action-btns button {
+        font-size: 1.5rem;
+    }
+
+    .pomodoro-card .settings div label {
+        font-size: 1rem;
+    }
+
+    .pomodoro-card .settings div input {
+        font-size: 1rem;
+    }
+
+    .pomodoro-card .settings div select {
+        font-size: 1rem;
+    }
+    
+}
