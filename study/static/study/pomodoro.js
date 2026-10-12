@@ -213,6 +213,20 @@ async function logPomodoroTime() {
 
 }
 
+function setUpLocalStorage() {
+    localStorage.setItem("startTime", "");
+    localStorage.setItem("endTime", "");
+     localStorage.setItem("pauseList", "");
+}
+
+function setStartTime(startTime) {
+    return localStorage.setItem("startTime", startTime)
+}
+
+function setEndTime(endTime) {
+    return localStorage.setItem("endTime", endTime)
+}
+
 function calculatePauseDuration(startPause, endPause) {
     return endPause - startPause
 }
@@ -226,3 +240,4 @@ function appendPause(pauseDuration) {
 function readPauses() {
     return localStorage.getItem("pauseList");
 }
+
