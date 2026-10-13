@@ -20,19 +20,22 @@ const message = messageContainer.querySelector(".message");
 const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value;
 
 // Global Variables
-let isPaused = false
+let isPaused = false;
 
-let remainingMinutes = 0
-let remainingSeconds = 0
+let remainingMinutes = 0;
+let remainingSeconds = 0;
 
 let isStarted = false;
 let mode = "study";
 
-let startTime = null;
-let endTime = null;
+let startTime;
+let endTime;
 
 let isEnded = false;
-let subjectToStudy = subjectDropdown.value
+let subjectToStudy = subjectDropdown.value;
+
+let startPause;
+let endPause;
 
 
 
@@ -65,29 +68,38 @@ breakButton.addEventListener("click", () => {
 
 
 startButton.addEventListener("click", () => {
-    toggleStart("start");
     const durationValue = duration.value == '' ? mode == "break" ? 5: 25: Number(duration.value);
     if (!isPaused) {
+        setUpLocalStorage()
         isEnded = false;
         startTime = Date.now();
+        setStartTime(startTime);
         setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
-    } 
+    } else {
+        endPause = Date.now();
+        appendPause(endPause - startPause);
+        console.log("Appended pause.");
+    }
 
     if (mode == "break") {
+        setUpLocalStorage();
         isEnded = false;
         startTime = Date.now();
+        setStartTime(startTime);
         setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
     }
 
+    toggleStart("start");
     subjectToStudy = subjectDropdown.value
-    setStartTime(startTime)
-    setTimer();
+    
     startTimer();
+    setTimer();
     isStarted = true
 })
 
 pauseButton.addEventListener("click", () => {
     toggleStart("pause");
+    startPause = Date.now()
 })
 
 
@@ -108,8 +120,6 @@ function startTimer() {
             return
         }
 
-        
-        
         if (remainingTime <= 0 && isEnded === false) {
             setTimer()
             return completedTimer(mode)
@@ -162,11 +172,17 @@ async function logPomodoroTime() {
     
     let finalStartDate = new Date(Number(getStartTime())).toISOString();
     let finalEndDate = new Date(Number(getEndTime())).toISOString();
+    let totalPauseTime = readPauses().reduce((total, currentPause) => {
+        return total + currentPause
+    });
+
+    console.log(totalPauseTime)
     
     const payload = {
         startTime: finalStartDate,
         endTime: finalEndDate,
-        subjectStudied: subjectToStudy
+        subjectStudied: subjectToStudy,
+        totalPauseTime: totalPauseTime
     };
 
     try {
@@ -183,8 +199,8 @@ async function logPomodoroTime() {
             updateMessage("Success", "Pomodoro successfully completed! Check the dashboard!");
             console.log("Successfully created study session");
         } else {
-            updateMessage("Error", "An error occured while logging the pomodoro!");
-            console.log("Error occured");
+            updateMessage(`Error: ${response.status}`, "An error occured while logging the pomodoro!");
+            console.log("An error occured");
         }
 
     } catch(error) {
@@ -194,12 +210,17 @@ async function logPomodoroTime() {
 
 }
 
+function resetPauseTimes() {
+    startPause = 0;
+    endPause = 0;
+}
+
 function setUpLocalStorage() {
     remainingMinutes = 0;
     remainingSeconds = 0;
     localStorage.setItem("startTime", "");
     localStorage.setItem("endTime", "");
-    localStorage.setItem("pauseList", "");
+    localStorage.setItem("pauseList", JSON.stringify([]));
 }
 
 function setStartTime(startTime) {
@@ -225,11 +246,14 @@ function calculatePauseDuration(startPause, endPause) {
 
 function appendPause(pauseDuration) {
     let pauseList = readPauses();
-    pauseList.append(pauseDuration);
-    return localStorage.setItem("pauseList", pausesList)
+    console.log(pauseList)
+    pauseList.push(pauseDuration);
+    setEndTime(Number(getEndTime()) + pauseDuration)
+    resetPauseTimes();
+    return localStorage.setItem("pauseList", JSON.stringify(pauseList))
 }
 
 function readPauses() {
-    return localStorage.getItem("pauseList");
+    return JSON.parse(localStorage.getItem("pauseList"));
 }
 

@@ -1,7 +1,8 @@
 import json
+import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_datetime
+from django.utils.dateparse import parse_datetime, parse_duration
 from django.http import JsonResponse
 from .models import StudySession, Subject
 from .utils import hours_studied_this_week, hours_studied_today, average_time_per_day, format_minutes_to_hours_minutes, minutes_per_subject_this_week, minutes_per_study_type_this_week, format_subject_results, get_profile, get_subjects, format_study_type_minutes
@@ -61,13 +62,17 @@ def pomodoro(request):
     subjects = Subject.objects.all()
     if request.method == "POST":
         session_info = json.loads(request.body)
+
         start_time = parse_datetime(session_info['startTime'])
         end_time = parse_datetime(session_info['endTime'])
+        total_pause_time = datetime.timedelta(milliseconds=session_info['totalPauseTime'])
+
         
         subject_name = session_info["subjectStudied"]
 
-        if start_time and end_time:
-            duration = round(((end_time - start_time).total_seconds()) / 60)
+        if start_time and end_time and total_pause_time:
+            duration = round((((end_time - start_time) - total_pause_time ).total_seconds()) / 60)
+            print(f"Duration: {duration} ")
 
         if not start_time or not end_time:
             return JsonResponse(data={
@@ -87,8 +92,6 @@ def pomodoro(request):
 
         }, status=201)
 
-    
-       
     return render(request, "study/pomodoro.html", {
         "subjects": subjects
     })
