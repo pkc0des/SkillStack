@@ -52,8 +52,9 @@ studyButton.addEventListener("click", () => {
 })
 
 breakButton.addEventListener("click", () => {
+    setUpLocalStorage()
     if (isPaused == false) {
-        return
+        isPaused = true
     }
     mode = "break";
     studyButton.style.backgroundColor =  'hsl(212, 17%, 67%)';
@@ -66,18 +67,16 @@ breakButton.addEventListener("click", () => {
 
 
 startButton.addEventListener("click", () => {
+    if (!isPaused) {
+        isEnded = false;
+        startTime = Date.now();
+        const durationValue = duration.value == '' ? mode == "break" ? 5: 25: Number(duration.value);
+        setEndTime(Number(startTime) + (durationValue * 60 * 1000));
+        
+    }
+
     subjectToStudy = subjectDropdown.value
-    console.log(subjectToStudy)
-
-    isEnded = false
-    startTime = Date.now()
-
-    const durationValue = duration.value == '' ? 25 : Number(duration.value)
-
     setStartTime(startTime)
-    setEndTime(Number(startTime) + (durationValue * 60 * 1000))
-    
-    
     setTimer();
     startTimer();
     toggleStart("start");
@@ -99,11 +98,6 @@ function startTimer() {
         let remainingTotalSeconds = Math.ceil(remainingTime / 1000)
         remainingMinutes = Math.floor(remainingTotalSeconds / 60)
         remainingSeconds = remainingTotalSeconds % 60
-
-        console.log(remainingMinutes)
-
-        
-
 
         if (isPaused === true || isEnded === true) {
             clearInterval(updateTimer)
@@ -138,11 +132,12 @@ function completedTimer(currentMode) {
     if (currentMode === "study") {
         isEnded = true
         logPomodoroTime()
-        setUpLocalStorage()
 
     } else if (currentMode === "break") {
         console.log("Finished break");
     }
+    setUpLocalStorage()
+    setTimer()
 }
 
 function updateMessage(resType, content) {
@@ -182,8 +177,11 @@ async function logPomodoroTime() {
         });
 
         if (response.ok) {
-            updateMessage("success", "Pomodoro successfully completed! Check the dashboard!")
-            console.log("Successfully created study session")
+            updateMessage("Success", "Pomodoro successfully completed! Check the dashboard!");
+            console.log("Successfully created study session");
+        } else {
+            updateMessage("Error", "An error occured while logging the pomodoro!");
+            console.log("Error occured");
         }
 
     } catch(error) {
@@ -194,6 +192,8 @@ async function logPomodoroTime() {
 }
 
 function setUpLocalStorage() {
+    remainingMinutes = 0;
+    remainingSeconds = 0;
     localStorage.setItem("startTime", "");
     localStorage.setItem("endTime", "");
     localStorage.setItem("pauseList", "");
