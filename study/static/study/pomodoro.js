@@ -22,8 +22,8 @@ const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value;
 // Global Variables
 let isPaused = false
 
-let durationMinutes = 0
-let durationSeconds = 0
+let remainingMinutes = 0
+let remainingSeconds = 0
 
 let isStarted = false;
 let mode = "study";
@@ -45,8 +45,8 @@ studyButton.addEventListener("click", () => {
     mode = "study";
     breakButton.style.backgroundColor = 'hsl(212, 17%, 67%)';
     studyButton.style.backgroundColor = 'hsl(213, 84%, 58%)';
-    durationMinutes = 25;
-    durationSeconds = 0;
+    remainingMinutes = 25;
+    remainingSeconds = 0;
     setTimer();
     isStarted = false;
 })
@@ -58,8 +58,8 @@ breakButton.addEventListener("click", () => {
     mode = "break";
     studyButton.style.backgroundColor =  'hsl(212, 17%, 67%)';
     breakButton.style.backgroundColor = 'hsl(220, 96%, 55%)';
-    durationMinutes = 5;
-    durationSeconds = 0;
+    remainingMinutes = 5;
+    remainingSeconds = 0;
     setTimer();
     isStarted = false;
 })
@@ -70,17 +70,12 @@ startButton.addEventListener("click", () => {
     console.log(subjectToStudy)
 
     isEnded = false
-    startTime = new Date()
-    durationMinutes =  durationMinutes === 0 ? duration.value : durationMinutes;
-    durationSeconds = durationSeconds === 0 ? 59 : durationSeconds;
-    if(validateDuration(durationMinutes) == false) {
-        durationMinutes = 25;
-        durationSeconds = 59;
-    }
+    startTime = Date.now()
 
-     if (!isStarted) {
-        durationMinutes -= 1;
-    }
+    const durationValue = duration.value == '' ? 25 : Number(duration.value)
+
+    setStartTime(startTime)
+    setEndTime(Number(startTime) + (durationValue * 60 * 1000))
     
     
     setTimer();
@@ -90,20 +85,26 @@ startButton.addEventListener("click", () => {
 })
 
 pauseButton.addEventListener("click", () => {
-    const curr_mins = durationMinutes;
-    const curr_secs = durationSeconds;
-
     toggleStart("pause");
-
 })
 
 
 function setTimer() {
-    timer.textContent = `${durationMinutes > 0 ? durationMinutes : `0${durationMinutes}`}:${durationSeconds >= 10 ? durationSeconds : `0${durationSeconds}`}`;
+    timer.textContent = `${remainingMinutes >= 10 ? remainingMinutes : `0${remainingMinutes}`}:${remainingSeconds >= 10 ? remainingSeconds : `0${remainingSeconds}`}`;
 }
 
 function startTimer() {
     const updateTimer = setInterval(() => {
+        let remainingTime = Number(getEndTime()) - Date.now()
+        let remainingTotalSeconds = Math.ceil(remainingTime / 1000)
+        remainingMinutes = Math.floor(remainingTotalSeconds / 60)
+        remainingSeconds = remainingTotalSeconds % 60
+
+        console.log(remainingMinutes)
+
+        
+
+
         if (isPaused === true || isEnded === true) {
             clearInterval(updateTimer)
             console.log(isEnded)
@@ -112,38 +113,13 @@ function startTimer() {
 
         
         
-        if (durationMinutes <= 0 && durationSeconds <= 0 && isEnded === false) {
+        if (remainingTime <= 0 && isEnded === false) {
             setTimer()
             return completedTimer(mode)
         }
         
-        if (durationSeconds <= 0) {
-            durationMinutes -= 1;
-            durationSeconds = 59;
-        }
-
-        durationSeconds -= 1;
-        setTimer(durationMinutes, durationSeconds);
-
-        if (isEnded === true) {
-            console.log(isEnded);
-            durationMinutes = 0;
-            durationSeconds = 0;
-            setTimer()
-        }
-
+        setTimer();
     }, 1000)
-}
-
-function validateDuration() {
-    console.log(durationMinutes)
-    if (durationMinutes === undefined || durationMinutes === ''){
-        return false
-    } else if (durationMinutes === 0) {
-        return false
-    }
-
-    return true
 }
 
 function toggleStart(typeToTurnOff) {
@@ -161,8 +137,8 @@ function toggleStart(typeToTurnOff) {
 function completedTimer(currentMode) {
     if (currentMode === "study") {
         isEnded = true
-        endTime = new Date();
         logPomodoroTime()
+        setUpLocalStorage()
 
     } else if (currentMode === "break") {
         console.log("Finished break");
@@ -185,9 +161,13 @@ function updateMessage(resType, content) {
 
 async function logPomodoroTime() {
     const url = 'http://127.0.0.1:8000/pomodoro'
+    
+    let finalStartDate = new Date(Number(getStartTime())).toISOString();
+    let finalEndDate = new Date(Number(getEndTime())).toISOString();
+    
     const payload = {
-        startTime: startTime,
-        endTime: endTime,
+        startTime: finalStartDate,
+        endTime: finalEndDate,
         subjectStudied: subjectToStudy
     };
 
@@ -216,7 +196,7 @@ async function logPomodoroTime() {
 function setUpLocalStorage() {
     localStorage.setItem("startTime", "");
     localStorage.setItem("endTime", "");
-     localStorage.setItem("pauseList", "");
+    localStorage.setItem("pauseList", "");
 }
 
 function setStartTime(startTime) {
@@ -226,6 +206,15 @@ function setStartTime(startTime) {
 function setEndTime(endTime) {
     return localStorage.setItem("endTime", endTime)
 }
+
+function getStartTime() {
+    return localStorage.getItem("startTime")
+}
+
+function getEndTime() {
+    return localStorage.getItem("endTime")
+}
+
 
 function calculatePauseDuration(startPause, endPause) {
     return endPause - startPause

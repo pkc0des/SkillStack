@@ -63,6 +63,7 @@ def pomodoro(request):
         session_info = json.loads(request.body)
         start_time = parse_datetime(session_info['startTime'])
         end_time = parse_datetime(session_info['endTime'])
+        
         subject_name = session_info["subjectStudied"]
 
         if start_time and end_time:
