@@ -67,10 +67,12 @@ def pomodoro(request):
         end_time = parse_datetime(session_info['endTime'])
         total_pause_time = datetime.timedelta(milliseconds=session_info['totalPauseTime'])
 
-        
+        if not total_pause_time:
+            total_pause_time = datetime.timedelta(milliseconds=0)
+
         subject_name = session_info["subjectStudied"]
 
-        if start_time and end_time and total_pause_time:
+        if start_time and end_time:
             duration = round((((end_time - start_time) - total_pause_time ).total_seconds()) / 60)
             print(f"Duration: {duration} ")
 

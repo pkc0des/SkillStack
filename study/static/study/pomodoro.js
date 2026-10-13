@@ -42,7 +42,7 @@ let endPause;
 // Event Handlers
 
 studyButton.addEventListener("click", () => {
-    if (isPaused == false) {
+    if (mode === "study") {
         return
     }
     mode = "study";
@@ -52,9 +52,13 @@ studyButton.addEventListener("click", () => {
     remainingSeconds = 0;
     setTimer();
     isStarted = false;
+    isEnded = true;
 })
 
 breakButton.addEventListener("click", () => {
+    if (mode === "break") {
+        return
+    }
     setUpLocalStorage()
     if (isPaused == false) {
         isPaused = true
@@ -64,29 +68,24 @@ breakButton.addEventListener("click", () => {
     breakButton.style.backgroundColor = 'hsl(220, 96%, 55%)';
     setTimer();
     isStarted = false;
+    isEnded = true;
 })
 
 
 startButton.addEventListener("click", () => {
     const durationValue = duration.value == '' ? mode == "break" ? 5: 25: Number(duration.value);
-    if (!isPaused) {
+    if (isStarted && isPaused) {
+        endPause = Date.now();
+        appendPause(endPause - startPause);
+        console.log("Appended pause.");
+
+    } else {
         setUpLocalStorage()
         isEnded = false;
         startTime = Date.now();
         setStartTime(startTime);
         setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
-    } else {
-        endPause = Date.now();
-        appendPause(endPause - startPause);
-        console.log("Appended pause.");
-    }
-
-    if (mode == "break") {
-        setUpLocalStorage();
-        isEnded = false;
-        startTime = Date.now();
-        setStartTime(startTime);
-        setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
+        
     }
 
     toggleStart("start");
@@ -142,15 +141,19 @@ function toggleStart(typeToTurnOff) {
 }
 
 function completedTimer(currentMode) {
+
     if (currentMode === "study") {
-        isEnded = true
         logPomodoroTime()
+        isEnded = true
 
     } else if (currentMode === "break") {
         console.log("Finished break");
     }
-    setUpLocalStorage()
-    setTimer()
+    toggleStart("pause");
+    isStarted = false;
+    isPaused = false;
+    setUpLocalStorage();
+    setTimer();
 }
 
 function updateMessage(resType, content) {
@@ -174,7 +177,7 @@ async function logPomodoroTime() {
     let finalEndDate = new Date(Number(getEndTime())).toISOString();
     let totalPauseTime = readPauses().reduce((total, currentPause) => {
         return total + currentPause
-    });
+    }, 0);
 
     console.log(totalPauseTime)
     
