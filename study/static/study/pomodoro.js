@@ -59,27 +59,30 @@ breakButton.addEventListener("click", () => {
     mode = "break";
     studyButton.style.backgroundColor =  'hsl(212, 17%, 67%)';
     breakButton.style.backgroundColor = 'hsl(220, 96%, 55%)';
-    remainingMinutes = 5;
-    remainingSeconds = 0;
     setTimer();
     isStarted = false;
 })
 
 
 startButton.addEventListener("click", () => {
+    toggleStart("start");
+    const durationValue = duration.value == '' ? mode == "break" ? 5: 25: Number(duration.value);
     if (!isPaused) {
         isEnded = false;
         startTime = Date.now();
-        const durationValue = duration.value == '' ? mode == "break" ? 5: 25: Number(duration.value);
-        setEndTime(Number(startTime) + (durationValue * 60 * 1000));
-        
+        setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
+    } 
+
+    if (mode == "break") {
+        isEnded = false;
+        startTime = Date.now();
+        setEndTime(Number(startTime) + (durationValue * 60 * 1000)); 
     }
 
     subjectToStudy = subjectDropdown.value
     setStartTime(startTime)
     setTimer();
     startTimer();
-    toggleStart("start");
     isStarted = true
 })
 
@@ -146,9 +149,9 @@ function updateMessage(resType, content) {
     console.log(content)
     responseType.textContent = resType
 
-    if (resType == "success") {
+    if (resType.toLowerCase() == "success") {
         responseType.style.color = 'rgb(79, 145, 72)';
-    } else if (resType == "error") {
+    } else if (resType.toLowerCase() == "error") {
         responseType.style.color = 'rgb(211, 47, 47)';
     }
     message.textContent = content
