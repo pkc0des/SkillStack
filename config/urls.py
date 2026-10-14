@@ -22,6 +22,7 @@ from accounts import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    path('', include('study.urls'))
+    path('', include('study.urls')),
+    path('', include('coach.urls'))
 
 ]
