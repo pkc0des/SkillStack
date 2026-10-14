@@ -1,0 +1,5 @@
+const container = document.querySelector(".full-container")
+const chatContainer = container.querySelector(".chat-container")
+const aiResponse = chatContainer.querySelector(".ai-response")
+const prompt = container.querySelector(".prompt")
+const sendButton = container.querySelector(".send-btn")
