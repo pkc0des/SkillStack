@@ -13,7 +13,6 @@ from .forms import LogHoursForm
 @login_required()
 def dashboard(request):
     user = request.user
-
     studied_this_week = hours_studied_this_week(user)
     studied_today = hours_studied_today(user)
     average_time_studied = average_time_per_day(user)
