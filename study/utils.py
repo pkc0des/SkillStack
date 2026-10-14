@@ -72,7 +72,7 @@ def hours_studied_this_week(user):
     return time_studied["duration__sum"]
 
 def hours_studied_today(user):
-    yesterday = timezone.now() - timedelta(days=1)
+    yesterday = timezone.localtime().replace(hour=0, minute=0, second=0, microsecond=0)
     time_studied =  get_hours_over_time(user, yesterday)
 
     if time_studied["duration__sum"] is None:
