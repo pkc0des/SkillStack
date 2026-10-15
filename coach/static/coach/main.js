@@ -7,6 +7,7 @@ const sendButton = container.querySelector(".send-btn");
 const csrfToken = document.querySelector("[name='csrfmiddlewaretoken']").value
 
 sendButton.addEventListener("click", () => {
+    toggleSend()
     const promptText = validatePrompt();
     sendPrompt(promptText)
    
@@ -35,9 +36,24 @@ async function sendPrompt(promptMessage) {
             body: JSON.stringify({prompt: promptMessage})
         })
 
+        if (!response.ok) {
+            console.log("An error occured.")
+        }
+
+        data = await response.json()
+        if (data["message"]) {
+            updateAIResponse(data["message"])
+        }
+
     } catch(error) {
         console.log(error)
     }
+}
 
+function updateAIResponse(response) {
+    aiResponse.textContent = response
+}
 
+function toggleSend() {
+    sendButton.disabled = !sendButton.disabled
 }
