@@ -95,10 +95,12 @@ def format_minutes_to_hours_minutes(minutes):
     formatted_time = ""
 
     if hours != 0:
-        formatted_time += f"{hours} hours"
+        formatted_time += f"{hours} {'hours' if hours > 1 else 'hour'}"
+        if minutes_remainder:
+            formatted_time += " "
 
     if minutes_remainder != 0:
-        formatted_time += f" {minutes_remainder} minutes"
+        formatted_time += f"{minutes_remainder} minutes"
 
     if formatted_time == "":
         return "0 minutes"
