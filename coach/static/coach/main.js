@@ -30,6 +30,7 @@ function validatePrompt() {
 }
 
 async function sendPrompt(promptMessage) {
+    aiResponse.innerHTML = ""
     const url = "http://127.0.0.1:8000/coach"
 
     try {
@@ -43,14 +44,33 @@ async function sendPrompt(promptMessage) {
         })
 
         if (!response.ok) {
-            console.log("An error occured.")
-            
+            const data = await response.json();
+            updateAIResponse(data["message"]);
+            return;
         }
 
-        const data = await response.json()
-        if (data["message"]) {
-            updateAIResponse(data["message"])
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder()
+        let fullText = ""
+
+        while (true) {
+            const {done, value} = await reader.read()
+
+            if (done) {
+                break
+            }
+
+            const newText = decoder.decode(value, {stream: true});
+
+            for (let char of newText) {
+                fullText += char
+                updateAIResponse(fullText)
+                await sleep(10)
+
+            }
         }
+
+        
     } catch(error) {
         console.log(error)
     } finally {
@@ -75,4 +95,10 @@ function toggleSend() {
         sendButton.style.backgroundColor = enabledColor;
         sendButton.style.cursor = 'pointer';
     }
+}
+
+function sleep(ms) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, ms)
+    })
 }
