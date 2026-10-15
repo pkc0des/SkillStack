@@ -12,15 +12,12 @@
 {% block body %}
     <div class="full-container">
         <div class="chat-container">
-            <p class="ai-response">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut doloremque soluta error unde necessitatibus obcaecati? Quod officia alias sequi sit possimus sunt illum cumque! Exercitationem soluta possimus odit voluptatibus commodi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti vitae laboriosam esse in, similique nobis cum quo adipisci, modi aliquam, alias ipsa? Harum nulla porro unde consequatur quasi accusamus? Nesciunt?</p>
+            <p class="ai-response">Hello! I'm your motivational coach and I'm here to help you. I won't tell you what you want to hear. I'll tell you what you need to hear.</p>
         </div>
 
        {% csrf_token %}
         <textarea class="prompt" placeholder="Give me some awesome motivation!"></textarea>
         <button class="send-btn">Send</button>
-
-
-
     </div>
 
     <script defer src="{% static 'coach/main.js' %}"></script>
