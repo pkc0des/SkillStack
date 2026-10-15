@@ -1,13 +1,32 @@
 from django.test import TestCase
-from .models import StudySession, Subject
+
 from accounts.models import Profile
 from django.contrib.auth.models import User
 
 from datetime import timedelta
 from django.utils import timezone
+from .models import StudySession, Subject
+from .utils import format_minutes_to_hours_minutes
 
 
 # Create your tests here.
+
+class FormatMinutesTestCase(TestCase):
+    def test_under_an_hour(self):
+        formatted_45_mins = format_minutes_to_hours_minutes(45)
+        self.assertEqual(formatted_45_mins, "45 minutes")
+
+    def test_exactly_hoours(self):
+        formatted_120_mins = format_minutes_to_hours_minutes(120)
+        self.assertEqual(formatted_120_mins, "2 hours")
+
+    def test_hours_and_minutes(self):
+        formatted_105_minutes = format_minutes_to_hours_minutes(105)
+        self.assertEqual(formatted_105_minutes, "1 hour 45 minutes")
+
+    def test_zero(self):
+        formatted_0 = format_minutes_to_hours_minutes(0)
+        self.assertEqual(formatted_0, "0 minutes")
 
 class StudySessionModelTestCase(TestCase):
     def setUp(self):
@@ -61,7 +80,7 @@ class StudySessionModelTestCase(TestCase):
             subject = self.mathematics,
             duration = 60,
             start_time = start,
-            end_time = start + timedelta(60)
+            end_time = start + timedelta(minutes=60)
         )
 
         self.assertEqual(self.alice.study_sessions.count(), 1) #type: ignore
