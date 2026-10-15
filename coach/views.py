@@ -1,9 +1,11 @@
 import json
 from django.shortcuts import render
 from django.http import JsonResponse, StreamingHttpResponse
+from django.contrib.auth.decorators import login_required
 from .utils import get_full_prompt, client
 
 # Create your views here.
+@login_required()
 def coach(request):
     if request.method == "POST":
         session_info = json.loads(request.body)
@@ -14,7 +16,7 @@ def coach(request):
               "message": "You must enter a prompt"
             }, status=400)
 
-        full_prompt = get_full_prompt(user_prompt)
+        full_prompt = get_full_prompt(user_prompt, request.user)
 
         try:
             response = client.models.generate_content_stream(
