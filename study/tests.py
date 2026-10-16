@@ -92,7 +92,18 @@ class HoursStudiedTestCase(BaseStudyTestCase):
         self.assertEqual(minutes_studied_this_week(self.alice_user), 75)
         self.assertEqual(minutes_studied_today(self.alice_user), 75)
 
-    
+    def test_ignores_old_sessions(self):
+        start = timezone.now() - timedelta(days=10)
+        StudySession.objects.create(
+            user=self.alice,
+            subject=self.programming,
+            duration=45,
+            start_time=start,
+            end_time=start + timedelta(hours=2)
+        )
+
+        self.assertEqual(minutes_studied_this_week(self.alice_user), 0)
+        self.assertEqual(minutes_studied_today(self.alice_user), 0)
         
 
 
