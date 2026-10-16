@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from datetime import timedelta
 from django.utils import timezone
 from .models import StudySession, Subject
-from .utils import format_minutes_to_hours_minutes, minutes_studied_this_week, minutes_studied_today
+from .utils import format_minutes_to_hours_minutes, minutes_studied_this_week, minutes_studied_today, average_time_per_day
 
 
 # Create your tests here.
@@ -68,8 +68,8 @@ class FormatMinutesTestCase(TestCase):
         formatted_0 = format_minutes_to_hours_minutes(0)
         self.assertEqual(formatted_0, "0 minutes")
 
-class HoursStudiedTestCase(BaseStudyTestCase):
-    def test_sums_sessions_this_week(self):
+class MinutesStudiedTestCase(BaseStudyTestCase):
+    def test_sums_sessions_over_time(self):
         end = timezone.now()
         StudySession.objects.create(
             user=self.alice,
@@ -84,13 +84,14 @@ class HoursStudiedTestCase(BaseStudyTestCase):
         StudySession.objects.create(
             user=self.alice,
             subject=self.programming,
-            duration=45,
+            duration=40,
             start_time=end - timedelta(minutes=45),
             end_time=end
         )
 
-        self.assertEqual(minutes_studied_this_week(self.alice_user), 75)
-        self.assertEqual(minutes_studied_today(self.alice_user), 75)
+        self.assertEqual(minutes_studied_this_week(self.alice_user), 70)
+        self.assertEqual(minutes_studied_today(self.alice_user), 70)
+        self.assertEqual(average_time_per_day(self.alice_user), "10 minutes")
 
     def test_ignores_old_sessions(self):
         start = timezone.now() - timedelta(days=10)
@@ -104,6 +105,7 @@ class HoursStudiedTestCase(BaseStudyTestCase):
 
         self.assertEqual(minutes_studied_this_week(self.alice_user), 0)
         self.assertEqual(minutes_studied_today(self.alice_user), 0)
+        self.assertEqual(average_time_per_day(self.alice_user), "0 minutes")
 
     def test_ignores_other_users_sessions(self):
         start = timezone.now() - timedelta(hours=3)
@@ -117,8 +119,7 @@ class HoursStudiedTestCase(BaseStudyTestCase):
 
         self.assertEqual(minutes_studied_this_week(self.bob_user), 60)
         self.assertEqual(minutes_studied_this_week(self.alice_user), 0)
-        
-
+        self.assertEqual(average_time_per_day(self.bob_user), "9 minutes")
 
 class StudySessionModelTestCase(BaseStudyTestCase):
     def test_study_session_creation(self):
