@@ -1,6 +1,6 @@
 from google import genai
 from config.settings import GEMINI_API_KEY
-from study.utils import hours_studied_this_week, hours_studied_today, average_time_per_day, minutes_per_subject_this_week
+from study.utils import minutes_studied_this_week, minutes_studied_today, average_time_per_day, minutes_per_subject_this_week
 
 BOILERPLATE_AI_PROMPT = """
     You are the best motivational coach in the world.
@@ -16,8 +16,8 @@ BOILERPLATE_AI_PROMPT = """
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 def get_full_prompt(user_prompt, user):
-    weekly_hours = hours_studied_this_week(user)
-    daily_hours = hours_studied_today(user)
+    weekly_hours = minutes_studied_this_week(user)
+    daily_hours = minutes_studied_today(user)
     avg_daily_hours = average_time_per_day(user)
 
     # time_info = f"Weekly Time: {weekly_hours} | Daily Time: {daily_hours} | Average Daily Time: {avg_daily_hours}" (Weekly & Average are innaccurate until next week.)

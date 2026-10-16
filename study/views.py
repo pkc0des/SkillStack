@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.dateparse import parse_datetime, parse_duration
 from django.http import JsonResponse
 from .models import StudySession, Subject
-from .utils import hours_studied_this_week, hours_studied_today, average_time_per_day, format_minutes_to_hours_minutes, minutes_per_subject_this_week, minutes_per_study_type_this_week, format_subject_results, get_profile, get_subjects, format_study_type_minutes
+from .utils import minutes_studied_this_week, minutes_studied_today, average_time_per_day, format_minutes_to_hours_minutes, minutes_per_subject_this_week, minutes_per_study_type_this_week, format_subject_results, get_profile, get_subjects, format_study_type_minutes
 from .forms import LogHoursForm
 
 # Create your views here.
@@ -13,8 +13,8 @@ from .forms import LogHoursForm
 @login_required()
 def dashboard(request):
     user = request.user
-    studied_this_week = hours_studied_this_week(user)
-    studied_today = hours_studied_today(user)
+    studied_this_week = minutes_studied_this_week(user)
+    studied_today = minutes_studied_today(user)
     average_time_studied = average_time_per_day(user)
     time_per_subject = minutes_per_subject_this_week(user)
     formatted_subjects = format_subject_results(time_per_subject)

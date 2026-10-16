@@ -13,7 +13,7 @@ def get_sessions_since(user, initital_time):
         end_time__lte=timezone.now(),
     )
 
-def get_hours_over_time(user, initial_time, type: str | None = None):
+def get_hours_over_time(user, initial_time):
     return get_sessions_since(user, initial_time).aggregate(Sum("duration"))
 
 def minutes_per_subject_this_week(user):
@@ -62,7 +62,7 @@ def format_study_type_minutes(study_type_results):
     return log_information
 
 
-def hours_studied_this_week(user):
+def minutes_studied_this_week(user):
     one_week_ago = timezone.now() - timedelta(days=7)
     time_studied = get_hours_over_time(user, one_week_ago)
 
@@ -71,7 +71,7 @@ def hours_studied_this_week(user):
     
     return time_studied["duration__sum"]
 
-def hours_studied_today(user):
+def minutes_studied_today(user):
     yesterday = timezone.localtime().replace(hour=0, minute=0, second=0, microsecond=0)
     time_studied =  get_hours_over_time(user, yesterday)
 
@@ -82,8 +82,8 @@ def hours_studied_today(user):
 
 
 def average_time_per_day(user):
-    total_weekly_hours =  hours_studied_this_week(user)
-    return format_minutes_to_hours_minutes(total_weekly_hours / 7)
+    total_weekly_minutes =  minutes_studied_this_week(user)
+    return format_minutes_to_hours_minutes(total_weekly_minutes / 7)
 
 def get_profile(user):
     return Profile.objects.get(user=user)
