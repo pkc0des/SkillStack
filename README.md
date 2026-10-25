@@ -7,7 +7,7 @@
 ## Overview
 What is SkillStack, who is it for, and what problem does it solve as an all-in-one study platform?
 
-SkillStack is an all in one sutdy platform. That means that it has everything from a Pomodoro timer, logging study time, all the way to automatic study data analysis and a personal coach (Gemini API key). SkillStack can really be used by any ambitious, studious, and curious individuals! It solves the problem of having to use multiple websites/apps to track your studying: one website for a pomodoro timer, one website for a todo list, one website to track your hours. Skillstack turns clutter into clean.
+SkillStack is an all in one study platform. That means that it has everything from a Pomodoro timer, logging study time, all the way to automatic study data analysis and a personal coach (Gemini API key). SkillStack can really be used by any ambitious, studious, and curious individuals! It solves the problem of having to use multiple websites/apps to track your studying: one website for a pomodoro timer, one website for a todo list, one website to track your hours. Skillstack turns clutter into clean.
 
 ## Features
 - What features exist right now? (bullet list, update as you build)
