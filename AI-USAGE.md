@@ -22,5 +22,5 @@ How to apply: Default to hints and explanations. Tiny API-name references (e.g. 
 In my opinion, I didn't really use much AI on this project! For the most part, I only needed it when I crossed a problem that I didn't have the tools(syntax) to answer, and of course some of the logic in the pomodoro timer.
 
 ## What's next?
-I will implement the AI coach feature in the future but for now, SkillStack is ready for use! WOOHOO!!!
+I want to make SkillStack more useable for high school students by allowing a variety of custom subjects!
 
