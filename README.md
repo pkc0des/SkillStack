@@ -1,6 +1,6 @@
 # SkillStack
 
-> What does SkillStack do, in one sentence?
+> SkillStack is an all one study management tool targeted for ambitious middle and high school students.
 
 <!-- Badges (build status, license, version) go here once CI/versioning exist. -->
 
@@ -28,20 +28,15 @@ SkillStack is an all in one sutdy platform. That means that it has everything fr
         - Profiles
         - Study Sessions
         - Subjects
+     - AI Coach
+        - Clean, chat-like UI
+        - High energy & motivational vibes
         
 
 - Planned Features & In Progress Features:
-    - AI Coach
-        - Clean, chat-like UI
-        - High energy & motivational vibes
-    
     - Database Models
         - Goals
         - User Preferences (For the personal coach)
-
-    
-## Demo / Screenshots
-Got a screenshot, GIF, or hosted demo to link once there's a UI to show?
 
 ## Tech Stack
 - **Backend:** Django — which version?
@@ -49,48 +44,6 @@ Got a screenshot, GIF, or hosted demo to link once there's a UI to show?
     - SQLite during the development phase
 - **Frontend:** Templates? React? Still deciding?
     - Templates w/ browser based react
-- **Other services:** Auth, storage, task queue — what's in play?
-
-## Architecture
-How do the pieces fit together (apps/modules, data flow)? Worth a diagram once the structure stabilizes.
-
-## Getting Started
-
-### Prerequisites
-What tools/versions are required? (Python, pip, DB, etc.)
-
-### Installation
-```bash
-git clone <repo-url>
-cd SkillStack
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### Configuration
-What env vars / `.env` settings are needed? (secret key, DB URL, debug flag, etc.)
-
-### Running Locally
-```bash
-python manage.py migrate
-python manage.py runserver
-```
-
-## Project Structure
-What do the top-level directories/apps own?
-
-## Roadmap
-What's the near-term and longer-term plan? Where is this headed?
-
-## Testing
-How do you run the test suite? What's covered so far?
-
-## Deployment
-Where/how does this get deployed once that's set up? (platform, CI/CD, env differences)
-
-## Contributing
-Will this open up beyond solo work? What should contributors know?
 
 ## License
 What license applies — or is it still TBD?
