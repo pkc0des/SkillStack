@@ -80,6 +80,7 @@ class MinutesStudiedTestCase(BaseStudyTestCase):
         )
         self.assertEqual(minutes_studied_this_week(self.alice_user), 30)
         self.assertEqual(minutes_studied_today(self.alice_user), 30)
+        self.assertEqual(average_time_per_day(self.alice_user), "4 minutes")
 
         StudySession.objects.create(
             user=self.alice,
@@ -120,6 +121,12 @@ class MinutesStudiedTestCase(BaseStudyTestCase):
         self.assertEqual(minutes_studied_this_week(self.bob_user), 60)
         self.assertEqual(minutes_studied_this_week(self.alice_user), 0)
         self.assertEqual(average_time_per_day(self.bob_user), "9 minutes")
+
+
+class SubjectsStudiedTestCase(BaseStudyTestCase):
+    def test_subject_sums_over_time(self):
+        pass
+
 
 class StudySessionModelTestCase(BaseStudyTestCase):
     def test_study_session_creation(self):
