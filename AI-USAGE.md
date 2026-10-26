@@ -18,6 +18,9 @@ How to apply: Default to hints and explanations. Tiny API-name references (e.g. 
 - Providing explanations and good practice
     - Explaining what operations between various types of dates result in
 -  General purpose debugging for things that I struggled to figure out
+- SAFETY.md was rephrashed by AI to ensure that the security information is accurate.
+- README.md was also created by Claude Code because it's mainly for GitHub cloners and not actual use.
+
 
 In my opinion, I didn't really use much AI on this project! For the most part, I only needed it when I crossed a problem that I didn't have the tools(syntax) to answer, and of course some of the logic in the pomodoro timer.
 
